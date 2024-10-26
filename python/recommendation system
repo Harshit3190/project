@@ -1,0 +1,28 @@
+# Movie dataset with genres (dummy data)
+movies = {
+    'Movie A': ['Action', 'Adventure'],
+    'Movie B': ['Action', 'Thriller'],
+    'Movie C': ['Comedy'],
+    'Movie D': ['Action', 'Comedy'],
+}
+
+# User's preferences based on previously liked movies
+user_preferences = ['Action', 'Adventure']
+
+# Step 2: Recommend movies based on genre overlap
+def recommend_movies(user_preferences, movies):
+    recommendations = {}
+    for movie, genres in movies.items():
+        overlap = set(user_preferences).intersection(genres)
+        recommendations[movie] = len(overlap)  # The more genres overlap, the higher the recommendation score
+    
+    # Sort recommendations by score (descending order)
+    recommendations = sorted(recommendations.items(), key=lambda x: x[1], reverse=True)
+    return recommendations
+
+# Example: Recommend movies for the user
+recommended_movies = recommend_movies(user_preferences, movies)
+
+print("Recommended Movies (Content-Based Filtering):")
+for movie, score in recommended_movies:
+    print(f"{movie}: {score}")
